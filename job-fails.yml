@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob-fails
+spec:
+  template:
+    spec:
+      containers:
+      - name: main
+        image: perl
+        command:
+        - "sh"
+        - "-c"
+        - "echo 'Sleepin a bit...' && sleep 5 && echo 'Still too early' && exit 1"
+      # Do not restart a failed container.
+      restartPolicy: Never
+  # Try 0x to restart the Pod if needed (e.g. if a Node fails).
+  backoffLimit: 0
