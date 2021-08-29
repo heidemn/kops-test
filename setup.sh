@@ -26,3 +26,13 @@ aws s3api put-bucket-encryption --bucket kops-martinowitsch-state \
 # ./kops.sh edit cluster martinowitsch.net
 # ./kops.sh edit ig --name=martinowitsch.net master-eu-west-1a
 # ./kops.sh edit ig --name=martinowitsch.net nodes-eu-west-1a
+
+# Do stuff
+
+# Scale down to 0
+
+# Scale up again
+# Wait until DNS is updated (can take 5min)
+
+# ./kops.sh export kubecfg --admin
+# kubectl taint nodes --all node-role.kubernetes.io/master-

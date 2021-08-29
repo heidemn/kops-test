@@ -7,7 +7,7 @@ export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
 
 export KOPS_STATE_STORE=s3://kops-martinowitsch-state
 
-export NAME=martinowitsch.net
+export KOPS_CLUSTER_NAME=martinowitsch.net
 
 #kops create cluster \
 #    --zones=eu-west-1a \
