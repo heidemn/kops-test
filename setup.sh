@@ -23,9 +23,9 @@ aws s3api put-bucket-versioning --bucket kops-martinowitsch-state \
 aws s3api put-bucket-encryption --bucket kops-martinowitsch-state \
     --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
 
-# ./kops.sh edit cluster martinowitsch.net
-# ./kops.sh edit ig --name=martinowitsch.net master-eu-west-1a
-# ./kops.sh edit ig --name=martinowitsch.net nodes-eu-west-1a
+./kops.sh edit cluster martinowitsch.net
+./kops.sh edit ig --name=martinowitsch.net master-eu-west-1a
+./kops.sh edit ig --name=martinowitsch.net nodes-eu-west-1a
 
 # Do stuff
 

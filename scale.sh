@@ -1,14 +1,35 @@
 #!/bin/bash
-set -ex
+set -e
 
-./kops.sh edit ig master-eu-west-1a
+run_cmd() {
+    echo "$@" >&2
+    "$@"
+}
 
-./kops.sh update cluster --yes
+# Scale masters, e.g. switch between 0 and 1:
+run_cmd ./kops.sh edit ig master-eu-west-1a
 
-./kops.sh export kubecfg --admin
+# Scale nodes (always 0 for me):
+# ./kops.sh edit ig --name=martinowitsch.net nodes-eu-west-1a
 
-# Fix delayed Route53 update
-./route53-update.sh
+echo
+my_ip="$(curl --silent https://ipv4.icanhazip.com/)"
+echo "YOUR IPv4: $my_ip"
+if command -v clip.exe > /dev/null; then
+    echo -n "$my_ip/32" | clip.exe
+    echo "Copied to Windows clipboard!"
+fi
+echo "Press <RETURN> to edit cluster..."
+read
+
+run_cmd ./kops.sh edit cluster
+
+run_cmd ./kops.sh update cluster --yes
+
+run_cmd ./kops.sh export kubecfg --admin
+
+# Fix delayed Route53 update:
+run_cmd ./route53-update.sh
 
 # Once kubectl works:
 # ./untaint-masters.sh
